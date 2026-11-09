@@ -1,0 +1,30 @@
+---
+import TerminalBox from '../widgets/TerminalBox.astro';
+import DiskUsageMeter from '../widgets/DiskUsageMeter.astro';
+import { sidebarLinks } from '@data/links';
+---
+
+<aside class="left-sidebar" role="navigation" aria-label="Main navigation">
+  <div>
+    <TerminalBox >
+      <span slot="legend">01 // DIRECTORY</span>
+      <nav class="directory-nav" aria-label="Page sections">
+        <a href="#home" data-section="home">> ~/HOME</a>
+        <a href="#archive" data-section="archive">> ~/ARCHIVE</a>
+        <a href="#intel" data-section="intel">> ~/INTEL</a>
+        <a href="#uplink" data-section="uplink">> ~/UPLINK</a>
+      </nav>
+    </TerminalBox>
+
+    <TerminalBox >
+      <span slot="legend">02 // CONNECTION</span>
+      <nav class="connection-links" aria-label="External connections">
+        {sidebarLinks.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+        ))}
+      </nav>
+    </TerminalBox>
+  </div>
+
+  <DiskUsageMeter />
+</aside>

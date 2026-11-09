@@ -1,0 +1,23 @@
+{
+  "name": "terminal-portfolio",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "biome format --write .",
+    "lint": "biome lint ."
+  },
+  "dependencies": {
+    "astro": "^4.16.0",
+    "@astrojs/react": "^3.6.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "@fontsource/press-start-2p": "^5.0.0",
+    "@fontsource/jetbrains-mono": "^5.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "typescript": "^5.6.0"
+  }
+}

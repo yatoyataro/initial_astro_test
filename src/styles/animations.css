@@ -1,0 +1,38 @@
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes cpu-fluctuate {
+  0%, 100% { opacity: 1; }
+}
+
+.console-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background: var(--accent-blue);
+  animation: cursor-blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+.network-bar {
+  transition: height 0.3s ease, background 0.3s ease;
+}
+
+.cpu-value {
+  transition: all 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .console-cursor {
+    animation: none;
+    opacity: 1;
+  }
+  .network-bar {
+    transition: none;
+  }
+  .cpu-value {
+    transition: none;
+  }
+}
