@@ -1,10 +1,11 @@
 ---
 import AppShell from '../components/layout/AppShell.astro';
-import HomeSection from '../components/sections/HomeSection';
-import ArchiveSection from '../components/sections/ArchiveSection';
-import IntelSection from '../components/sections/IntelSection';
-import UplinkSection from '../components/sections/UplinkSection';
-import ClientInit from '../components/scripts/ClientInit';
+
+import { HomeSection } from '../components/sections/HomeSection';
+import { ArchiveSection } from '../components/sections/ArchiveSection';
+import { IntelSection } from '../components/sections/IntelSection';
+import { UplinkSection } from '../components/sections/UplinkSection';
+import { ClientInit } from '../components/scripts/ClientInit';
 
 // Import CSS so Astro bundles it
 import '../styles/global.css';
@@ -19,7 +20,7 @@ import '../styles/animations.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Dwight Jairo C. Pingul — Backend & Systems Software Engineer Portfolio" />
-    <title>DWIGHT JAIRO C. PINGUL — TERMINAL PORTFOLIO</meta>
+    <title>DWIGHT JAIRO C. PINGUL — TERMINAL PORTFOLIO</title>
   </head>
   <body>
     <AppShell>

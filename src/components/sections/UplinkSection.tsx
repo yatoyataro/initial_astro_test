@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { consoleLog } from '@components/widgets/ConsoleLog';
 import { Input } from '@components/ui/Input';
 import { Textarea } from '@components/ui/Textarea';

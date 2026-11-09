@@ -1,4 +1,4 @@
-import { Project } from '@data/projects';
+import type { Project } from '@data/projects';
 import { Button } from '@components/ui/Button';
 
 interface ProjectCardProps {

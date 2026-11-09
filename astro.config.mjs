@@ -3,7 +3,7 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://yatoyataro.github.io',
-  base: '/TestPort101/',
+  base: '/initial_astro_test/',
   output: 'static',
   integrations: [react()],
   vite: {

@@ -8,21 +8,6 @@ export function IntelSection() {
     <section id="intel" className="section">
       <div className="section-header">// 02_INTEL :: TECHNICAL_SPECIFICATIONS_&_LOGS</div>
 
-      <TerminalBox legend="SYSTEM_CAPABILITIES // PROFICIENCY_MATRIX">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-          {skills.map((category) => (
-            <div key={category.category}>
-              <h4 style={{ fontSize: '0.6875rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
-                {category.category}
-              </h4>
-              {category.items.map((skill) => (
-                <ProficiencyBar key={skill.name} name={skill.name} pct={skill.proficiency} />
-              ))}
-            </div>
-          ))}
-        </div>
-      </TerminalBox>
-
       <TerminalBox legend="EXECUTION_HISTORY // CAREER_LOG">
 
         <div>
@@ -76,6 +61,22 @@ export function IntelSection() {
           ))}
         </div>
       </TerminalBox>
+      
+      <TerminalBox legend="SYSTEM_CAPABILITIES // PROFICIENCY_MATRIX">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          {skills.map((category) => (
+            <div key={category.category}>
+              <h4 style={{ fontSize: '0.6875rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
+                {category.category}
+              </h4>
+              {category.items.map((skill) => (
+                <ProficiencyBar key={skill.name} name={skill.name} pct={skill.proficiency} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </TerminalBox>
+
     </section>
   );
 }
