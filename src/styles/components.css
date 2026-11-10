@@ -129,7 +129,7 @@
   justify-content: center;
   gap: 8px;
   padding: 10px 16px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -165,7 +165,7 @@
 .textarea-terminal {
   width: 100%;
   padding: 10px 12px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.8125rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -332,14 +332,14 @@
 }
 
 .timeline-bullets li::before {
-  content: '>';
+  content: ">";
   position: absolute;
   left: 0;
   color: var(--text-muted);
 }
 
 .hero-name {
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   font-size: clamp(1.75rem, 3.2vw, 2.75rem);
   line-height: 1.35;
   color: var(--text-primary);
@@ -367,9 +367,14 @@
 .console-log {
   height: 280px;
   padding: 16px 14px;
-  overflow-y: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
   font-size: 0.75rem;
   line-height: 1.7;
+}
+
+.console-log::-webkit-scrollbar {
+  display: none;
 }
 
 .console-line {
@@ -428,6 +433,12 @@
 }
 
 @keyframes cursor-blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }

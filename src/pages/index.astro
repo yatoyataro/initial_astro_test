@@ -1,17 +1,23 @@
 ---
-import AppShell from '../components/layout/AppShell.astro';
+import AppShell from "../components/layout/AppShell.astro";
 
-import { HomeSection } from '../components/sections/HomeSection';
-import { ArchiveSection } from '../components/sections/ArchiveSection';
-import { IntelSection } from '../components/sections/IntelSection';
-import { UplinkSection } from '../components/sections/UplinkSection';
-import { ClientInit } from '../components/scripts/ClientInit';
+import { HomeSection } from "../components/sections/HomeSection";
+import { ArchiveSection } from "../components/sections/ArchiveSection";
+import { IntelSection } from "../components/sections/IntelSection";
+import { UplinkSection } from "../components/sections/UplinkSection";
+import { ClientInit } from "../components/scripts/ClientInit";
 
-// Import CSS so Astro bundles it
-import '../styles/global.css';
-import '../styles/layout.css';
-import '../styles/components.css';
-import '../styles/animations.css';
+// Import bundled Fontsource fonts
+import "@fontsource/press-start-2p";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/jetbrains-mono/700.css";
+
+// Import CSS for astro to bundle
+import "../styles/global.css";
+import "../styles/layout.css";
+import "../styles/components.css";
+import "../styles/animations.css";
 ---
 
 <!DOCTYPE html>
@@ -20,13 +26,14 @@ import '../styles/animations.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Dwight Jairo C. Pingul — Backend & Systems Software Engineer Portfolio" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>DWIGHT JAIRO C. PINGUL — TERMINAL PORTFOLIO</title>
   </head>
   <body>
     <AppShell>
-      <HomeSection slot="center" client:load />
-      <ArchiveSection slot="center" client:load />
-      <IntelSection slot="center" client:load />
+      <HomeSection slot="center" />
+      <ArchiveSection slot="center" />
+      <IntelSection slot="center" />
       <UplinkSection slot="center" client:load />
     </AppShell>
 

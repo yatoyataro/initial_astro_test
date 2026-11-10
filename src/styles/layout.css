@@ -86,7 +86,10 @@
 @media (max-width: 1023px) {
   .app-shell {
     grid-template-columns: 1fr;
-    grid-template-rows: 38px auto 38px;
+    grid-template-rows: 38px auto 1fr 38px;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
   }
 
   .left-sidebar {
@@ -96,6 +99,7 @@
     border-bottom: 1px solid var(--border-structural);
     position: sticky;
     top: 38px;
+    z-index: 90;
     height: auto;
     max-height: 300px;
     padding: 16px 20px;
@@ -115,6 +119,7 @@
     grid-column: 1;
     padding: 24px 20px;
     height: auto;
+    overflow-y: visible;
     min-height: calc(100vh - 76px);
   }
 
@@ -125,7 +130,7 @@
 
 @media (max-width: 767px) {
   .app-shell {
-    grid-template-rows: 38px auto auto 38px;
+    grid-template-rows: 38px auto 1fr auto auto;
   }
 
   .top-bar {

@@ -1,56 +1,26 @@
 :root {
   /* Exact color palette from spec §2 */
-  --bg-canvas: #05070A;
-  --bg-surface: #090D14;
-  --bg-console-header: #0F172A;
-  --bg-active-tab: #E2E8F0;
+  --bg-canvas: #05070a;
+  --bg-surface: #090d14;
+  --bg-console-header: #0f172a;
+  --bg-active-tab: #e2e8f0;
 
-  --text-primary: #E5E9F0;
-  --text-secondary: #64748B;
+  --text-primary: #e5e9f0;
+  --text-secondary: #64748b;
   --text-muted: #475569;
-  --text-inverted: #05070A;
+  --text-inverted: #05070a;
 
-  --accent-blue: #2563EB;
-  --accent-blue-bright: #3B82F6;
+  --accent-blue: #2563eb;
+  --accent-blue-bright: #3b82f6;
 
-  --border-structural: #1E293B;
-  --border-box: #1E293B;
-  --border-divider: #151C28;
+  --border-structural: #1e293b;
+  --border-box: #1e293b;
+  --border-divider: #151c28;
 }
 
-@font-face {
-  font-family: 'Press Start 2P';
-  src: url('/fonts/press-start-2p-latin-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/jetbrains-mono-latin-400.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/jetbrains-mono-latin-500.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/jetbrains-mono-latin-700.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -65,7 +35,7 @@ body {
   padding: 0;
   background: var(--bg-canvas);
   color: var(--text-primary);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.875rem;
   line-height: 1.65;
   letter-spacing: 0.06em;

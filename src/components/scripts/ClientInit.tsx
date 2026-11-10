@@ -1,7 +1,7 @@
-import { initScrollSpy } from '@scripts/scrollSpy';
-import { initCpuFluctuation } from '@scripts/cpuFluctuation';
-import { initClock } from '@scripts/clock';
-import { useEffect } from 'react';
+import { initScrollSpy } from "@scripts/scrollSpy";
+import { initCpuFluctuation } from "@scripts/cpuFluctuation";
+import { initClock } from "@scripts/clock";
+import { useEffect } from "react";
 
 export function ClientInit() {
   useEffect(() => {

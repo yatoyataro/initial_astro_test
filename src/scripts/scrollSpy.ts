@@ -1,46 +1,55 @@
-import { consoleLog } from '../components/widgets/ConsoleLog';
+import { consoleLog } from "@components/widgets/ConsoleLog";
 
-const SECTION_IDS = ['home', 'archive', 'intel', 'uplink'];
-const NAV_SELECTORS = SECTION_IDS.map((id) => `[data-section="${id}"]`).join(', ');
+const SECTION_IDS = ["home", "archive", "intel", "uplink"];
+const NAV_SELECTORS = SECTION_IDS.map((id) => `[data-section="${id}"]`).join(", ");
 
 export function initScrollSpy(): () => void {
   const navLinks = document.querySelectorAll<HTMLAnchorElement>(NAV_SELECTORS);
-  const sectionElements = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+  const sectionElements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+    (el): el is HTMLElement => el !== null
+  );
+
+  let currentActiveId = "home";
 
   function setActive(sectionId: string) {
-    navLinks.forEach((link) => {
+    for (const link of navLinks) {
       if (link.dataset.section === sectionId) {
-        link.classList.add('is-active');
+        link.classList.add("is-active");
       } else {
-        link.classList.remove('is-active');
+        link.classList.remove("is-active");
       }
-    });
+    }
   }
 
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
+      for (const entry of entries) {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          setActive(id);
-          const displayName = id.toUpperCase().replace('HOME', 'HOME').replace('ARCHIVE', 'ARCHIVE').replace('INTEL', 'INTEL').replace('UPLINK', 'UPLINK');
-          consoleLog.append(`> MOUNTING DIRECTORY: ~/${displayName}...`, 'info');
+          if (id && id !== currentActiveId) {
+            currentActiveId = id;
+            setActive(id);
+            consoleLog.append(`> MOUNTING DIRECTORY: ~/${id.toUpperCase()}...`, "info");
+          }
         }
-      });
+      }
     },
     {
-      rootMargin: '-30% 0px -60% 0px',
+      rootMargin: "-30% 0px -60% 0px",
       threshold: [0, 0.5, 1],
     }
   );
 
-  sectionElements.forEach((el) => observer.observe(el));
+  for (const el of sectionElements) {
+    observer.observe(el);
+  }
 
-  // Set initial active state
-  setActive('home');
+  setActive(currentActiveId);
 
   return () => {
     observer.disconnect();
-    navLinks.forEach((link) => link.classList.remove('is-active'));
+    for (const link of navLinks) {
+      link.classList.remove("is-active");
+    }
   };
 }

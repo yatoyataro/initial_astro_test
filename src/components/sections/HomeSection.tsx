@@ -1,5 +1,5 @@
-import { profile } from '@data/profile';
-import { TerminalBox } from '@components/widgets/TerminalBox';
+import { profile } from "@data/profile";
+import { TerminalBox } from "@components/widgets/TerminalBox";
 
 export function HomeSection() {
   return (
@@ -11,18 +11,27 @@ export function HomeSection() {
 
       <TerminalBox legend="BIOGRAPHICAL_DATA">
         <p>{profile.summary}</p>
-        <p style={{ marginTop: '1rem' }}>
+        <p style={{ marginTop: "1rem" }}>
           LOCATION: {profile.location} <br />
           EMAIL: {profile.email} <br />
-          GITHUB: <a href={profile.github} target="_blank" rel="noopener noreferrer">{profile.github}</a> <br />
-          LINKEDIN: <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">{profile.linkedin}</a>
+          GITHUB:{" "}
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
+            {profile.github}
+          </a>{" "}
+          <br />
+          LINKEDIN:{" "}
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+            {profile.linkedin}
+          </a>
         </p>
       </TerminalBox>
 
       <TerminalBox legend="DEVELOPMENT_PHILOSOPHY">
-        <ol style={{ paddingLeft: '1.5rem' }}>
-          {profile.philosophy.map((item, i) => (
-            <li key={i} style={{ marginBottom: '0.5rem', lineHeight: 1.6 }}>{item}</li>
+        <ol style={{ paddingLeft: "1.5rem" }}>
+          {profile.philosophy.map((item) => (
+            <li key={item} style={{ marginBottom: "0.5rem", lineHeight: 1.6 }}>
+              {item}
+            </li>
           ))}
         </ol>
       </TerminalBox>

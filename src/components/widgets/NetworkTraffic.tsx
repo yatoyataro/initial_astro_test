@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function NetworkTraffic() {
   const [bars, setBars] = useState<number[]>(() =>
@@ -14,9 +14,7 @@ export function NetworkTraffic() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBars(() =>
-        Array.from({ length: 24 }, () => Math.floor(Math.random() * 80) + 15)
-      );
+      setBars(() => Array.from({ length: 24 }, () => Math.floor(Math.random() * 80) + 15));
       setHighlights(() => {
         const indices = new Set<number>();
         while (indices.size < 7) {
@@ -34,7 +32,7 @@ export function NetworkTraffic() {
         {bars.map((height, index) => (
           <div
             key={index}
-            className={`network-bar ${highlights.includes(index) ? 'highlight' : ''}`}
+            className={`network-bar ${highlights.includes(index) ? "highlight" : ""}`}
             style={{ height: `${height}%` }}
           />
         ))}
