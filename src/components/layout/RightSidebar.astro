@@ -1,25 +1,25 @@
 ---
-import TerminalBox from '../widgets/TerminalBox.astro';
-import VisualId from '../widgets/VisualId.astro';
-import { ConsoleLog } from '../widgets/ConsoleLog';
-import { NetworkTraffic } from '../widgets/NetworkTraffic';
+import TerminalBox from "../widgets/TerminalBox.astro";
+import VisualId from "../widgets/VisualId.astro";
+import { ConsoleLog } from "../widgets/ConsoleLog";
+import { NetworkTraffic } from "../widgets/NetworkTraffic";
 ---
 
 <aside class="right-sidebar" role="complementary" aria-label="System diagnostics">
-  <TerminalBox >
+  <TerminalBox>
     <span slot="legend">VISUAL_ID</span>
     <VisualId />
   </TerminalBox>
 
-  <TerminalBox >
-    <header>
+  <TerminalBox>
+    <Fragment slot="header">
       <span class="legend-text">CONSOLE_OUTPUT.LOG</span>
       <span class="buffer-text">BUFFER: 1024KB</span>
-    </header>
+    </Fragment>
     <ConsoleLog client:load />
   </TerminalBox>
 
-  <TerminalBox >
+  <TerminalBox>
     <span slot="legend">NETWORK_TRAFFIC</span>
     <NetworkTraffic client:load />
   </TerminalBox>

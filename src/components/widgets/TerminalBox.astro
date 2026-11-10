@@ -1,6 +1,13 @@
 <fieldset class="terminal-box">
-  <legend class="terminal-legend">
-    <slot name="legend" />
-  </legend>
+  {Astro.slots.has('legend') && (
+    <legend class="terminal-legend">
+      <slot name="legend" />
+    </legend>
+  )}
+  {Astro.slots.has('header') && (
+    <header>
+      <slot name="header" />
+    </header>
+  )}
   <slot />
 </fieldset>
