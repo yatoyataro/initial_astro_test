@@ -3,7 +3,7 @@
 A terminal-styled personal portfolio built with [Astro](https://astro.build) and React,
 deployed to GitHub Pages with GitHub Actions.
 
-Live site: https://yatoyataro.github.io/initial_astro_test/
+Live site: https://yatoyataro.github.io/portfolio_terminal/
 
 ## Commands
 
