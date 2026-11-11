@@ -1,22 +1,30 @@
-import { forwardRef } from "react";
 import type { InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  /** Required so the <label htmlFor> link is explicit and stable. */
+  id: string;
+  hint?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, className = "", id, ...props }, ref) => {
-    const inputId = id || label.toLowerCase().replace(/[^a-z0-9]/g, "-");
-    return (
-      <div className="form-group">
-        <label htmlFor={inputId} className="form-label">
-          {label}
-        </label>
-        <input ref={ref} id={inputId} className={`input-terminal ${className}`} {...props} />
-      </div>
-    );
-  }
-);
-
-Input.displayName = "Input";
+export function Input({ label, id, hint, className = "", ...props }: InputProps) {
+  const hintId = hint ? `${id}-hint` : undefined;
+  return (
+    <div className="form-group">
+      <label htmlFor={id} className="form-label">
+        {label}
+      </label>
+      <input
+        id={id}
+        className={`input-terminal ${className}`.trim()}
+        aria-describedby={hintId}
+        {...props}
+      />
+      {hint && (
+        <p id={hintId} className="form-hint">
+          {hint}
+        </p>
+      )}
+    </div>
+  );
+}

@@ -1,26 +1,29 @@
 ---
-import TerminalBox from "../widgets/TerminalBox.astro";
-import VisualId from "../widgets/VisualId.astro";
 import { ConsoleLog } from "../widgets/ConsoleLog";
 import { NetworkTraffic } from "../widgets/NetworkTraffic";
+import { TerminalBox } from "../widgets/TerminalBox";
+import VisualId from "../widgets/VisualId.astro";
 ---
 
-<aside class="right-sidebar" role="complementary" aria-label="System diagnostics">
-  <TerminalBox>
-    <span slot="legend">VISUAL_ID</span>
+<!--
+  Decorative diagnostics. aria-hidden keeps it out of the accessibility tree.
+  Hidden below 768px (layout.css); client:media means phones never download or run its JavaScript.
+-->
+<div class="right-sidebar" aria-hidden="true">
+  <TerminalBox title="VISUAL_ID" headingLevel={null}>
     <VisualId />
   </TerminalBox>
 
-  <TerminalBox>
-    <Fragment slot="header">
-      <span class="legend-text">CONSOLE_OUTPUT.LOG</span>
-      <span class="buffer-text">BUFFER: 1024KB</span>
-    </Fragment>
-    <ConsoleLog client:load />
+  <TerminalBox
+    title="CONSOLE_OUTPUT.LOG"
+    meta="BUFFER: 1024KB"
+    variant="console"
+    headingLevel={null}
+  >
+    <ConsoleLog client:media="(min-width: 768px)" />
   </TerminalBox>
 
-  <TerminalBox>
-    <span slot="legend">NETWORK_TRAFFIC</span>
-    <NetworkTraffic client:load />
+  <TerminalBox title="NETWORK_TRAFFIC" headingLevel={null}>
+    <NetworkTraffic client:media="(min-width: 768px)" />
   </TerminalBox>
-</aside>
+</div>

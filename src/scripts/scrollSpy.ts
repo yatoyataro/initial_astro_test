@@ -1,55 +1,57 @@
-import { consoleLog } from "@components/widgets/ConsoleLog";
+import { consoleStore } from "./consoleStore";
 
-const SECTION_IDS = ["home", "archive", "intel", "uplink"];
-const NAV_SELECTORS = SECTION_IDS.map((id) => `[data-section="${id}"]`).join(", ");
-
+/**
+ * Highlights the nav link of the section currently in view and mirrors that in
+ * the (decorative) console log. Section ids come from the nav links themselves
+ * (`data-section="home"` → `<section id="home">`), so there is no second list to keep in sync.
+ */
 export function initScrollSpy(): () => void {
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>(NAV_SELECTORS);
-  const sectionElements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-    (el): el is HTMLElement => el !== null
-  );
+  const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-section]"));
+  const sections = navLinks
+    .map((link) => (link.dataset.section ? document.getElementById(link.dataset.section) : null))
+    .filter((el): el is HTMLElement => el !== null);
 
-  let currentActiveId = "home";
+  if (sections.length === 0) return () => {};
+
+  let currentId = "";
 
   function setActive(sectionId: string) {
     for (const link of navLinks) {
-      if (link.dataset.section === sectionId) {
-        link.classList.add("is-active");
+      const isActive = link.dataset.section === sectionId;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "location");
       } else {
-        link.classList.remove("is-active");
+        link.removeAttribute("aria-current");
       }
     }
   }
+
+  setActive("home");
+  currentId = "home";
 
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          if (id && id !== currentActiveId) {
-            currentActiveId = id;
-            setActive(id);
-            consoleLog.append(`> MOUNTING DIRECTORY: ~/${id.toUpperCase()}...`, "info");
-          }
+        if (!entry.isIntersecting) continue;
+        const id = entry.target.id;
+        if (id && id !== currentId) {
+          currentId = id;
+          setActive(id);
+          consoleStore.append(`> MOUNTING DIRECTORY: ~/${id.toUpperCase()}...`, "info");
         }
       }
     },
-    {
-      rootMargin: "-30% 0px -60% 0px",
-      threshold: [0, 0.5, 1],
-    }
+    { rootMargin: "-30% 0px -60% 0px", threshold: [0, 0.5, 1] }
   );
 
-  for (const el of sectionElements) {
-    observer.observe(el);
-  }
-
-  setActive(currentActiveId);
+  for (const section of sections) observer.observe(section);
 
   return () => {
     observer.disconnect();
     for (const link of navLinks) {
       link.classList.remove("is-active");
+      link.removeAttribute("aria-current");
     }
   };
 }

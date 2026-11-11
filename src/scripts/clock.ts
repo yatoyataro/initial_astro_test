@@ -1,17 +1,16 @@
+const pad = (value: number) => String(value).padStart(2, "0");
+
+function render(el: HTMLElement) {
+  const now = new Date();
+  el.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+}
+
 export function initClock(): () => void {
-  const clockEl = document.getElementById("live-clock");
-  if (!clockEl) return () => {};
+  const el = document.getElementById("live-clock");
+  if (!el) return () => {};
 
-  function updateClock() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-    clockEl.textContent = `${hours}:${minutes}:${seconds}`;
-  }
-
-  updateClock();
-  const intervalId = window.setInterval(updateClock, 1000);
+  render(el);
+  const intervalId = window.setInterval(() => render(el), 1000);
 
   return () => {
     window.clearInterval(intervalId);

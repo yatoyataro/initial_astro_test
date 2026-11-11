@@ -1,15 +1,17 @@
 ---
-import TopTelemetryBar from "./TopTelemetryBar.astro";
+import BottomFooter from "./BottomFooter.astro";
 import LeftSidebar from "./LeftSidebar.astro";
 import RightSidebar from "./RightSidebar.astro";
-import BottomFooter from "./BottomFooter.astro";
+import TopTelemetryBar from "./TopTelemetryBar.astro";
 ---
 
 <div class="app-shell">
   <TopTelemetryBar />
   <LeftSidebar />
-  <main class="center-stage" role="main">
-    <slot name="center" />
+  <main id="main-content" class="center-stage" tabindex="-1">
+    <div class="center-inner">
+      <slot name="center" />
+    </div>
   </main>
   <RightSidebar />
   <BottomFooter />

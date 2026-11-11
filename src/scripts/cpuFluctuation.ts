@@ -1,18 +1,13 @@
+import { createTicker } from "./ticker";
+
 export function initCpuFluctuation(): () => void {
-  const cpuEl = document.getElementById('cpu-value');
-  if (!cpuEl) return () => {};
+  const el = document.getElementById("cpu-value");
+  if (!el) return () => {};
 
-  function updateCpu() {
-    const value = (Math.random() * 1.6 + 0.2).toFixed(1);
-    if (cpuEl) {
-      cpuEl.textContent = `${value}%`;
-    }
-  }
-
-  updateCpu();
-  const intervalId = window.setInterval(updateCpu, 3000);
-
-  return () => {
-    window.clearInterval(intervalId);
+  const update = () => {
+    el.textContent = `${(Math.random() * 1.6 + 0.2).toFixed(1)}%`;
   };
+
+  update();
+  return createTicker(update, 3000);
 }

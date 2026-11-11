@@ -3,21 +3,15 @@ interface ProficiencyBarProps {
   pct: number;
 }
 
+const SEGMENT_COUNT = 10;
+
 export function ProficiencyBar({ name, pct }: ProficiencyBarProps) {
-  const filledCount = Math.floor(pct / 10);
-  const hasPartial = pct % 10 >= 5;
-  const segments = Array.from({ length: 10 }, (_, i) => {
-    let type = "empty";
-    if (i < filledCount) {
-      type = "filled";
-    } else if (i === filledCount && hasPartial) {
-      type = "partial";
-    }
-    return {
-      id: `${name}-seg-${i}`,
-      type,
-    };
-  });
+  // Each segment is 10%, so round to the nearest segment (75% draws 8, 74% draws 7).
+  const filledCount = Math.round(pct / 10);
+  const segments = Array.from({ length: SEGMENT_COUNT }, (_, i) => ({
+    id: `segment-${i}`,
+    filled: i < filledCount,
+  }));
 
   return (
     <div className="proficiency-bar">
@@ -25,9 +19,13 @@ export function ProficiencyBar({ name, pct }: ProficiencyBarProps) {
         <span className="proficiency-name">{name}</span>
         <span className="proficiency-pct">{pct}%</span>
       </div>
-      <div className="proficiency-track">
+      {/* The percentage above carries the meaning, so the bar is decorative. */}
+      <div className="proficiency-track" aria-hidden="true">
         {segments.map((segment) => (
-          <div key={segment.id} className={`proficiency-segment ${segment.type}`} />
+          <div
+            key={segment.id}
+            className={`proficiency-segment${segment.filled ? " filled" : ""}`}
+          />
         ))}
       </div>
     </div>

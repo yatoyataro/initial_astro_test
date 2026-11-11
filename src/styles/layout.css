@@ -1,180 +1,178 @@
+/*
+  Three layouts, mobile-first:
+    phone   (< 768px):   one column; slim top bar + sticky 4-link nav; decorative panels hidden
+    tablet  (768-1279):  one centred column; diagnostics shown as a 3-tile row under the content
+    desktop (>= 1280px): the full three-column terminal (nav | content | diagnostics)
+  Below 1280px the page scrolls normally. Only at 1280px+ does <main> become its own scroll area.
+*/
+
 .app-shell {
-  display: grid;
-  grid-template-rows: 38px 1fr 38px;
-  grid-template-columns: 260px 1fr 320px;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100dvh;
 }
 
 .top-bar {
-  grid-row: 1;
-  grid-column: 1 / -1;
-  border-bottom: 1px solid var(--border-structural);
   position: sticky;
   top: 0;
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--topbar-h);
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--border-structural);
   background: var(--bg-canvas);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .left-sidebar {
-  grid-row: 2;
-  grid-column: 1;
-  border-right: 1px solid var(--border-structural);
-  padding: 24px 20px;
-  overflow-y: auto;
   position: sticky;
-  top: 38px;
-  height: calc(100vh - 76px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  top: var(--topbar-h);
+  z-index: 90;
+  height: var(--nav-h);
+  border-bottom: 1px solid var(--border-structural);
   background: var(--bg-canvas);
+}
+
+/* On phones and tablets the sidebar is only the compact section nav */
+.left-sidebar .connect-nav,
+.left-sidebar .disk-usage {
+  display: none;
 }
 
 .center-stage {
-  grid-row: 2;
-  grid-column: 2;
-  padding: 36px 40px;
-  overflow-y: auto;
-  height: calc(100vh - 76px);
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-structural) transparent;
+  min-width: 0;
+  padding: 24px var(--gutter) 40px;
+}
+
+.center-inner {
+  max-width: 56rem;
+  margin-inline: auto;
 }
 
 .right-sidebar {
-  grid-row: 2;
-  grid-column: 3;
-  border-left: 1px solid var(--border-structural);
-  padding: 24px 20px;
-  overflow-y: auto;
-  position: sticky;
-  top: 38px;
-  height: calc(100vh - 76px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: var(--bg-canvas);
-}
-
-.bottom-footer {
-  grid-row: 3;
-  grid-column: 1 / -1;
-  border-top: 1px solid var(--border-structural);
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
-  background: var(--bg-canvas);
+  display: none;
+  min-width: 0;
 }
 
 .section {
-  margin-bottom: 4.5rem;
+  margin-bottom: 3.5rem;
 }
 
 .section:last-child {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .section-header {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.1em;
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-divider);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
-@media (max-width: 1023px) {
-  .app-shell {
-    grid-template-columns: 1fr;
-    grid-template-rows: 38px auto 1fr 38px;
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
-  }
-
-  .left-sidebar {
-    grid-row: 2;
-    grid-column: 1;
-    border-right: none;
-    border-bottom: 1px solid var(--border-structural);
-    position: sticky;
-    top: 38px;
-    z-index: 90;
-    height: auto;
-    max-height: 300px;
-    padding: 16px 20px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .right-sidebar {
-    display: none;
-  }
-
-  .center-stage {
-    grid-row: 3;
-    grid-column: 1;
-    padding: 24px 20px;
-    height: auto;
-    overflow-y: visible;
-    min-height: calc(100vh - 76px);
-  }
-
-  .bottom-footer {
-    grid-row: 4;
-  }
-}
-
-@media (max-width: 767px) {
-  .app-shell {
-    grid-template-rows: 38px auto 1fr auto auto;
-  }
-
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
   .top-bar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .left-sidebar {
-    grid-row: 2;
-    position: sticky;
-    top: 38px;
-    z-index: 90;
-    border-bottom: 1px solid var(--border-structural);
-    padding: 12px 16px;
-    max-height: none;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 8px;
+    padding: 0 24px;
   }
 
   .center-stage {
-    grid-row: 3;
-    padding: 20px 16px;
-  }
-
-  .right-sidebar {
-    display: flex;
-    grid-row: 4;
-    border-top: 1px solid var(--border-structural);
-    border-left: none;
-    padding: 20px 16px;
-    height: auto;
-    position: static;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .bottom-footer {
-    grid-row: 5;
-    position: static;
+    padding: 32px 32px 56px;
   }
 
   .section {
-    margin-bottom: 3rem;
+    margin-bottom: 4.5rem;
+  }
+
+  /* Diagnostics become a 3-tile row beneath the content */
+  .right-sidebar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    padding: 8px 32px 32px;
+    border-top: 1px solid var(--border-structural);
+  }
+
+  .right-sidebar .terminal-box {
+    margin: 1.5rem 0 0;
+  }
+}
+
+/* ---------- Desktop: the full terminal ---------- */
+@media (min-width: 1280px) {
+  .app-shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr) 320px;
+    grid-template-rows: var(--topbar-h) minmax(0, 1fr) var(--footer-h);
+    grid-template-areas:
+      "top top top"
+      "nav main system"
+      "foot foot foot";
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .top-bar {
+    grid-area: top;
+    position: static;
+  }
+
+  .left-sidebar {
+    grid-area: nav;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: auto;
+    padding: 12px 20px 24px;
+    border-right: 1px solid var(--border-structural);
+    border-bottom: 0;
+    overflow-y: auto;
+  }
+
+  .left-sidebar .connect-nav {
+    display: block;
+  }
+
+  .left-sidebar .disk-usage {
+    display: block;
+  }
+
+  .center-stage {
+    grid-area: main;
+    padding: 24px 40px 48px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-structural) transparent;
+    scroll-padding-top: 16px;
+  }
+
+  .right-sidebar {
+    grid-area: system;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 20px 24px;
+    border-top: 0;
+    border-left: 1px solid var(--border-structural);
+    overflow-y: auto;
+  }
+
+  .right-sidebar .terminal-box {
+    margin: 1.5rem 0 0;
+  }
+
+  .bottom-footer {
+    grid-area: foot;
   }
 }

@@ -1,5 +1,15 @@
-<footer class="bottom-footer" style="display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 38px; font-size: 0.6875rem; letter-spacing: 0.08em;">
-  <span style="color: var(--text-secondary);">BUILD_VERSION: 1.0.4-STABLE</span>
-  <span style="color: var(--accent-blue);">TIMESTAMP: 2024.10.27 // 14:22:01</span>
-  <span style="color: var(--text-secondary);">(C) 2024 DWIGHT JAIRO C. PINGUL</span>
+---
+import { profile } from "@data/profile";
+import pkg from "../../../package.json";
+
+// Evaluated once, when the site is built (not in the visitor's browser).
+const builtAt = new Date();
+const buildDate = builtAt.toISOString().slice(0, 10).replaceAll("-", ".");
+const year = builtAt.getUTCFullYear();
+---
+
+<footer class="bottom-footer">
+  <span>BUILD_VERSION: {pkg.version}-STABLE</span>
+  <span class="bottom-footer__build">LAST_BUILD: {buildDate}</span>
+  <span>&copy; {year} {profile.name}</span>
 </footer>

@@ -1,42 +1,60 @@
 ---
 import AppShell from "../components/layout/AppShell.astro";
-
-import { HomeSection } from "../components/sections/HomeSection";
 import { ArchiveSection } from "../components/sections/ArchiveSection";
+import { HomeSection } from "../components/sections/HomeSection";
 import { IntelSection } from "../components/sections/IntelSection";
 import { UplinkSection } from "../components/sections/UplinkSection";
-import { ClientInit } from "../components/scripts/ClientInit";
 
-// Import bundled Fontsource fonts
-import "@fontsource/press-start-2p";
-import "@fontsource/jetbrains-mono/400.css";
-import "@fontsource/jetbrains-mono/500.css";
-import "@fontsource/jetbrains-mono/700.css";
+// Bundled fonts (Latin subsets only: smaller than the default all-languages import)
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "@fontsource/jetbrains-mono/latin-700.css";
+import "@fontsource/press-start-2p/latin-400.css";
 
-// Import CSS for astro to bundle
+// Styles (order matters: tokens → layout → components → motion)
 import "../styles/global.css";
 import "../styles/layout.css";
 import "../styles/components.css";
 import "../styles/animations.css";
+
+const title = "Dwight Jairo C. Pingul — Backend & Systems Software Engineer";
+const description =
+  "Portfolio of Dwight Jairo C. Pingul, a backend and systems software engineer working with PHP, Laravel, Node.js, TypeScript and MySQL.";
+const pageUrl = new URL(import.meta.env.BASE_URL, Astro.site).href;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Dwight Jairo C. Pingul — Backend & Systems Software Engineer Portfolio" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#05070a" />
+    <link rel="canonical" href={pageUrl} />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-    <title>DWIGHT JAIRO C. PINGUL — TERMINAL PORTFOLIO</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
     <AppShell>
       <HomeSection slot="center" />
       <ArchiveSection slot="center" />
       <IntelSection slot="center" />
-      <UplinkSection slot="center" client:load />
+      <UplinkSection slot="center" client:visible />
     </AppShell>
 
-    <ClientInit client:load />
+    <script>
+      import "../scripts/main";
+    </script>
   </body>
 </html>

@@ -1,23 +1,30 @@
-<header class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 38px; font-size: 0.6875rem; letter-spacing: 0.08em;">
-  <div style="display: flex; align-items: center; gap: 8px;">
-    <span style="color: var(--text-secondary);">SYSTEM_INTEGRITY_CHECK //</span>
-    <span style="color: var(--accent-blue); font-weight: 600;">PASSED</span>
+---
+// Decorative "system status" strip. Hidden from assistive technology on purpose:
+// the values are flavour text, not information. Layout is handled in layout.css (no inline styles).
+---
+
+<div class="top-bar" aria-hidden="true">
+  <div class="top-bar__status">
+    <span class="top-bar__label">
+      <span class="show-md">SYSTEM_INTEGRITY_CHECK</span><span class="hide-md">SYS_CHECK</span> //
+    </span>
+    <span class="top-bar__ok">PASSED</span>
   </div>
-  <div style="display: flex; align-items: center; gap: 24px;">
-    <div style="display: flex; align-items: center; gap: 6px;">
-      <span style="color: var(--text-secondary);">OS:</span>
-      <span style="color: var(--text-primary);">PROCESS_V1.0.4</span>
+
+  <div class="top-bar__stats">
+    <div class="kv kv--os">
+      <span class="kv__k">OS:</span>
+      <span class="kv__v">PROCESS_V1.0.4</span>
     </div>
-    <div style="display: flex; align-items: center; gap: 6px;">
-      <span style="color: var(--text-secondary);">CPU:</span>
-      <span id="cpu-value" class="cpu-value" style="color: var(--text-primary);">0.4%</span>
+    <div class="kv">
+      <span class="kv__k">CPU:</span>
+      <span id="cpu-value" class="kv__v cpu-value">--%</span>
     </div>
-    <div style="display: flex; align-items: center; gap: 6px;">
-      <span style="color: var(--text-secondary);">MEM:</span>
-      <span style="color: var(--text-primary);">124MB</span>
+    <div class="kv">
+      <span class="kv__k">MEM:</span>
+      <span class="kv__v">124MB</span>
     </div>
   </div>
-  <div style="display: flex; align-items: center; gap: 8px;">
-    <span id="live-clock" style="color: var(--text-secondary);">19:00:43</span>
-  </div>
-</header>
+
+  <span id="live-clock" class="top-bar__clock">--:--:--</span>
+</div>

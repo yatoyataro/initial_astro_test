@@ -1,16 +1,28 @@
-export const profile = {
-  name: "DWIGHT JAIRO C. PINGUL",
-  title: "BACKEND & SYSTEMS SOFTWARE ENGINEER",
-  location: "PANDACAQUI, MEXICO, PAMPANGA, PHILIPPINES",
+export interface Profile {
+  name: string;
+  title: string;
+  location: string;
+  email: string;
+  github: string;
+  linkedin: string;
+  /** Optional: put a PDF in /public and set e.g. "cv.pdf" to show a CV button in the hero. */
+  resumeFile?: string;
+  summary: string;
+  philosophy: string[];
+}
+
+export const profile: Profile = {
+  name: "Dwight Jairo C. Pingul",
+  title: "Backend & Systems Software Engineer",
+  location: "Pandacaqui, Mexico, Pampanga, Philippines",
   email: "dwightjairo.pingul23@gmail.com",
-  phone: "+63-968-379-3466",
   github: "https://github.com/yatoyataro",
   linkedin: "https://www.linkedin.com/in/dwightjairopingul/",
   summary:
-    "BACKEND DEVELOPER WITH HANDS-ON EXPERIENCE IN PHP, JAVASCRIPT, LARAVEL, NODE.JS, AND MYSQL, COMFORTABLE BUILDING REST APIS, REAL-TIME FEATURES, AND DATABASE-DRIVEN SYSTEMS. DETAIL-ORIENTED, WITH EXPERIENCE IN RECORDS ACCURACY AND DATA VERIFICATION GAINED THROUGH A GOVERNMENT OFFICE INTERNSHIP. STRONG ANALYTICAL AND COMMUNICATION SKILLS, WITH A PROVEN ABILITY TO MINIMIZE ERRORS AND STREAMLINE WORKFLOWS IN FAST-PACED ENVIRONMENTS.",
+    "Backend developer with hands-on experience in PHP, JavaScript, Laravel, Node.js, and MySQL, comfortable building REST APIs, real-time features, and database-driven systems. Detail-oriented, with experience in records accuracy and data verification gained through a government office internship. Strong analytical and communication skills, with a proven ability to minimize errors and streamline workflows in fast-paced environments.",
   philosophy: [
-    "MAINTAIN ANALOG INTEGRITY.",
-    "REDUCE LATENCY IN HUMAN INTERFACE.",
-    "OBSERVE. RECORD. DEPLOY.",
+    "Maintain analog integrity.",
+    "Reduce latency in human interface.",
+    "Observe. Record. Deploy.",
   ],
 };

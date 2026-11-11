@@ -1,30 +1,50 @@
 ---
-import TerminalBox from "../widgets/TerminalBox.astro";
-import DiskUsageMeter from "../widgets/DiskUsageMeter.astro";
 import { sidebarLinks } from "@data/links";
+import DiskUsageMeter from "../widgets/DiskUsageMeter.astro";
+
+const sections = [
+  { id: "home", label: "HOME" },
+  { id: "archive", label: "ARCHIVE" },
+  { id: "intel", label: "INTEL" },
+  { id: "uplink", label: "UPLINK" },
+];
 ---
 
-<aside class="left-sidebar" role="navigation" aria-label="Main navigation">
-  <div>
-    <TerminalBox >
-      <span slot="legend">01 // DIRECTORY</span>
-      <nav class="directory-nav" aria-label="Page sections">
-        <a href="#home" data-section="home">> ~/HOME</a>
-        <a href="#archive" data-section="archive">> ~/ARCHIVE</a>
-        <a href="#intel" data-section="intel">> ~/INTEL</a>
-        <a href="#uplink" data-section="uplink">> ~/UPLINK</a>
-      </nav>
-    </TerminalBox>
+<div class="left-sidebar">
+  <nav class="terminal-box terminal-box--nav site-nav" aria-label="Page sections">
+    <p class="terminal-box__title">DIRECTORY</p>
+    <div class="terminal-box__body site-nav__list">
+      {
+        sections.map((section) => (
+          <a href={`#${section.id}`} data-section={section.id}>
+            <span class="nav-prefix" aria-hidden="true">&gt; ~/</span>
+            {section.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
 
-    <TerminalBox >
-      <span slot="legend">02 // CONNECTION</span>
-      <nav class="connection-links" aria-label="External connections">
-        {sidebarLinks.map((link) => (
-          <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
-        ))}
-      </nav>
-    </TerminalBox>
-  </div>
+  <nav class="terminal-box terminal-box--nav connect-nav" aria-label="External profiles">
+    <p class="terminal-box__title">CONNECTION</p>
+    <div class="terminal-box__body connect-nav__list">
+      {
+        sidebarLinks.map((link) => {
+          const isExternal = link.url.startsWith("http");
+          return (
+            <a
+              href={link.url}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+            >
+              {link.label}
+              {isExternal && <span class="sr-only"> (opens in a new tab)</span>}
+            </a>
+          );
+        })
+      }
+    </div>
+  </nav>
 
   <DiskUsageMeter />
-</aside>
+</div>

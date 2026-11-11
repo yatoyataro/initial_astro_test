@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { createTicker } from "@scripts/ticker";
+import { useEffect, useState } from "react";
 
 interface BarData {
   id: string;
@@ -27,24 +28,22 @@ function generateRandomBars(): BarData[] {
   }));
 }
 
+/** Decorative. Updates pause in background tabs and when the visitor prefers reduced motion. */
 export function NetworkTraffic() {
   const [bars, setBars] = useState<BarData[]>(INITIAL_BARS);
 
   useEffect(() => {
     setBars(generateRandomBars());
-    const interval = setInterval(() => {
-      setBars(generateRandomBars());
-    }, 800);
-    return () => clearInterval(interval);
+    return createTicker(() => setBars(generateRandomBars()), 800);
   }, []);
 
   return (
     <div className="network-traffic">
-      <div className="network-bars" role="img" aria-label="Network traffic visualization">
+      <div className="network-bars">
         {bars.map((bar) => (
           <div
             key={bar.id}
-            className={`network-bar ${bar.highlighted ? 'highlight' : ''}`}
+            className={`network-bar${bar.highlighted ? " highlight" : ""}`}
             style={{ height: `${bar.height}%` }}
           />
         ))}
