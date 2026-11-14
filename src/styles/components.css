@@ -60,13 +60,6 @@
   white-space: nowrap;
 }
 
-/* The three diagnostics tiles are too narrow for the extra label below ~960px */
-@media (max-width: 959px) {
-  .terminal-box__bar-meta {
-    display: none;
-  }
-}
-
 /* Nav variant: on phones/tablets it is a bare row (no border, no title);
    at 1280px+ it becomes a normal terminal box in the sidebar. */
 .terminal-box--nav {
@@ -324,13 +317,6 @@
   background: #334155;
 }
 
-.visual-id {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 120px;
-}
-
 .console-log {
   height: 176px;
   padding: 12px;
@@ -387,10 +373,6 @@
 }
 
 @media (min-width: 1280px) {
-  .visual-id {
-    height: 170px;
-  }
-
   .console-log {
     height: 280px;
     padding: 16px 14px;

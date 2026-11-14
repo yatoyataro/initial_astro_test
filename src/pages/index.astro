@@ -4,6 +4,7 @@ import { ArchiveSection } from "../components/sections/ArchiveSection";
 import { HomeSection } from "../components/sections/HomeSection";
 import { IntelSection } from "../components/sections/IntelSection";
 import { UplinkSection } from "../components/sections/UplinkSection";
+import IdCard from "../components/widgets/IdCard.astro";
 
 // Bundled fonts (Latin subsets only: smaller than the default all-languages import)
 import "@fontsource/jetbrains-mono/latin-400.css";
@@ -15,6 +16,7 @@ import "@fontsource/press-start-2p/latin-400.css";
 import "../styles/global.css";
 import "../styles/layout.css";
 import "../styles/components.css";
+import "../styles/identity.css";
 import "../styles/animations.css";
 
 const title = "Dwight Jairo C. Pingul — Backend & Systems Software Engineer";
@@ -47,7 +49,9 @@ const pageUrl = new URL(import.meta.env.BASE_URL, Astro.site).href;
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <AppShell>
-      <HomeSection slot="center" />
+      <HomeSection slot="center">
+        <IdCard />
+      </HomeSection>
       <ArchiveSection slot="center" />
       <IntelSection slot="center" />
       <UplinkSection slot="center" client:visible />

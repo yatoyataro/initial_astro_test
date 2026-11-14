@@ -1,29 +1,37 @@
 ---
 import { ConsoleLog } from "../widgets/ConsoleLog";
+import IdCard from "../widgets/IdCard.astro";
 import { NetworkTraffic } from "../widgets/NetworkTraffic";
 import { TerminalBox } from "../widgets/TerminalBox";
-import VisualId from "../widgets/VisualId.astro";
 ---
 
-<!--
-  Decorative diagnostics. aria-hidden keeps it out of the accessibility tree.
-  Hidden below 768px (layout.css); client:media means phones never download or run its JavaScript.
--->
-<div class="right-sidebar" aria-hidden="true">
-  <TerminalBox title="VISUAL_ID" headingLevel={null}>
-    <VisualId />
-  </TerminalBox>
+<div class="right-sidebar">
+  <!--
+    The SUBJECT_ID portrait. On desktop windows at least 1280px wide and 700px tall it lives here,
+    above the console (layout.css shows this wrapper only then). Below 1280px it lives in the hero instead. It is real content with
+    alt text, so it must NOT be inside the aria-hidden block below.
+  -->
+  <aside class="sidebar-id" aria-label="Portrait">
+    <IdCard />
+  </aside>
 
-  <TerminalBox
-    title="CONSOLE_OUTPUT.LOG"
-    meta="BUFFER: 1024KB"
-    variant="console"
-    headingLevel={null}
-  >
-    <ConsoleLog client:media="(min-width: 768px)" />
-  </TerminalBox>
+  <!--
+    Decorative diagnostics. aria-hidden keeps them out of the accessibility tree.
+    The whole panel is hidden below 768px (layout.css); client:media means phones never download
+    or run its JavaScript.
+  -->
+  <div class="right-sidebar__diagnostics" aria-hidden="true">
+    <TerminalBox
+      title="CONSOLE_OUTPUT.LOG"
+      meta="BUFFER: 1024KB"
+      variant="console"
+      headingLevel={null}
+    >
+      <ConsoleLog client:media="(min-width: 768px)" />
+    </TerminalBox>
 
-  <TerminalBox title="NETWORK_TRAFFIC" headingLevel={null}>
-    <NetworkTraffic client:media="(min-width: 768px)" />
-  </TerminalBox>
+    <TerminalBox title="NETWORK_TRAFFIC" headingLevel={null} className="network-box">
+      <NetworkTraffic client:media="(min-width: 768px)" />
+    </TerminalBox>
+  </div>
 </div>

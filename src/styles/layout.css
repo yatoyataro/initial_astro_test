@@ -58,6 +58,11 @@
   min-width: 0;
 }
 
+/* The portrait lives in the hero below 1280px, and here (above the console) from 1280px up */
+.sidebar-id {
+  display: none;
+}
+
 .section {
   margin-bottom: 3.5rem;
 }
@@ -92,13 +97,17 @@
     margin-bottom: 4.5rem;
   }
 
-  /* Diagnostics become a 3-tile row beneath the content */
+  /* Diagnostics become a 2-tile row beneath the content */
   .right-sidebar {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    display: block;
     padding: 8px 32px 32px;
     border-top: 1px solid var(--border-structural);
+  }
+
+  .right-sidebar__diagnostics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
 
   .right-sidebar .terminal-box {
@@ -156,16 +165,50 @@
     scroll-padding-top: 16px;
   }
 
+  /* Nothing in this panel scrolls. The portrait only appears here when it fits (see the height
+     query below); the decorative console and network widgets simply shrink or drop out. */
   .right-sidebar {
     grid-area: system;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 0;
     padding: 12px 20px 24px;
     border-top: 0;
     border-left: 1px solid var(--border-structural);
-    overflow-y: auto;
+    overflow: hidden;
+  }
+
+  .right-sidebar__diagnostics {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* The console fills whatever height is left, up to 280px */
+  .right-sidebar .terminal-box--console {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    min-height: 0;
+    max-height: 280px;
+  }
+
+  .right-sidebar .terminal-box--console .terminal-box__body {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .right-sidebar .console-log {
+    flex: 1 1 0;
+    height: auto;
+    min-height: 0;
+  }
+
+  .right-sidebar .network-box {
+    flex: none;
   }
 
   .right-sidebar .terminal-box {
@@ -174,5 +217,27 @@
 
   .bottom-footer {
     grid-area: foot;
+  }
+}
+
+/* Tall enough for the whole portrait card (about 580px) plus the panel padding: show it here */
+@media (min-width: 1280px) and (min-height: 700px) {
+  .sidebar-id {
+    display: block;
+    flex: none;
+  }
+}
+
+/* The decorative widgets only appear when there is room for them to look right:
+   under 850px tall the card has the panel to itself; under 960px the network graph is dropped. */
+@media (min-width: 1280px) and (min-height: 700px) and (max-height: 849px) {
+  .right-sidebar__diagnostics {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) and (min-height: 700px) and (max-height: 960px) {
+  .right-sidebar .network-box {
+    display: none;
   }
 }
