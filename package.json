@@ -16,10 +16,10 @@
     "verify": "biome ci . && astro check && astro build"
   },
   "dependencies": {
-    "@astrojs/react": "^7.1.5",
+    "@astrojs/react": "^7.1.7",
     "@fontsource/jetbrains-mono": "^5.0.0",
     "@fontsource/press-start-2p": "^5.0.0",
-    "astro": "^7.4.8",
+    "astro": "^7.4.10",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
