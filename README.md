@@ -10,7 +10,7 @@ Live site: https://yatoyataro.github.io/portfolio_terminal/
 | Command           | What it does                                                        |
 | ----------------- | ------------------------------------------------------------------- |
 | `npm install`     | Install dependencies                                                |
-| `npm run dev`     | Start the dev server at `http://localhost:4321/initial_astro_test/` |
+| `npm run dev`     | Start the dev server at `http://localhost:4321/portfolio_terminal/` |
 | `npm run build`   | Build the production site into `dist/`                              |
 | `npm run preview` | Serve the production build locally                                  |
 | `npm run check`   | Type-check Astro, TypeScript and React files                        |
@@ -27,6 +27,8 @@ All text lives in `src/data/`:
 - `profile.ts`: name, title, contact details, bio (set `resumeFile` to show a CV button)
 - `projects.ts`: project cards
 - `skills.ts`, `experience.ts`: the Intel section
+- `src/assets/portrait.jpg`: the hero portrait (square, about 1200px). Strip camera metadata
+  before committing. Its alt text and the card's text lines live in `profile.ts`.
 
 Colours and spacing are CSS variables in `src/styles/global.css`.
 

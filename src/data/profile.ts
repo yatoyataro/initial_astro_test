@@ -1,3 +1,8 @@
+export interface IdReadoutLine {
+  label: string;
+  value: string;
+}
+
 export interface Profile {
   name: string;
   title: string;
@@ -9,6 +14,10 @@ export interface Profile {
   resumeFile?: string;
   summary: string;
   philosophy: string[];
+  /** Describes the portrait for screen readers. Describe what is visible, not who is looking. */
+  portraitAlt: string;
+  /** Short lines shown under the portrait in the SUBJECT_ID card. */
+  idReadout: IdReadoutLine[];
 }
 
 export const profile: Profile = {
@@ -24,5 +33,13 @@ export const profile: Profile = {
     "Maintain analog integrity.",
     "Reduce latency in human interface.",
     "Observe. Record. Deploy.",
+  ],
+  portraitAlt:
+    "Portrait of Dwight Jairo C. Pingul wearing a cream embroidered barong against a slate-blue studio backdrop.",
+  idReadout: [
+    { label: "DEGREE", value: "BS Computer Science" },
+    { label: "HONORS", value: "Magna cum laude" },
+    { label: "FOCUS", value: "Backend & systems" },
+    { label: "BASE", value: "Pampanga, Philippines" },
   ],
 };

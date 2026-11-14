@@ -1,0 +1,51 @@
+---
+import { Picture } from "astro:assets";
+import { profile } from "@data/profile";
+import portrait from "../../assets/portrait.jpg";
+import { TerminalBox } from "./TerminalBox";
+---
+
+<!--
+  "SUBJECT_ID" card: the portrait as an identity scan, in the same window frame as every other box.
+  The photo is real content (it stays visible on phones and has alt text). The scan line, corner
+  marks and status line are decoration and are hidden from assistive technology.
+-->
+<TerminalBox title="SUBJECT_ID" headingLevel={null} className="id-card">
+  <figure class="id-card__figure">
+    <div class="id-card__frame">
+      <Picture
+        src={portrait}
+        alt={profile.portraitAlt}
+        formats={["avif", "webp"]}
+        widths={[256, 384, 460, 690]}
+        sizes="(min-width: 1280px) 254px, (min-width: 768px) 230px, 128px"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        quality={82}
+        class="id-card__photo"
+      />
+      <span class="id-card__scan" aria-hidden="true"></span>
+      <span class="id-card__corner id-card__corner--tl" aria-hidden="true"></span>
+      <span class="id-card__corner id-card__corner--tr" aria-hidden="true"></span>
+      <span class="id-card__corner id-card__corner--bl" aria-hidden="true"></span>
+      <span class="id-card__corner id-card__corner--br" aria-hidden="true"></span>
+    </div>
+
+    <figcaption class="id-card__caption">
+      <p class="id-card__status caps" aria-hidden="true">
+        <span class="id-card__dot"></span>SCAN: COMPLETE
+      </p>
+      <dl class="id-card__readout">
+        {
+          profile.idReadout.map((line) => (
+            <div>
+              <dt>{line.label}</dt>
+              <dd>{line.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </figcaption>
+  </figure>
+</TerminalBox>

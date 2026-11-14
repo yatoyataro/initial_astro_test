@@ -31,3 +31,6 @@ desktop.ini
 # Local deployment configuration
 .vercel/
 .netlify/
+
+# Patch files used to apply changes; never commit them
+*.patch

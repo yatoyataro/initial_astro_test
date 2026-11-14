@@ -1,0 +1,260 @@
+/* ==========================================================================
+   Hero layout + SUBJECT_ID portrait card
+   Phone: title, then a compact photo + readout strip, then the buttons.
+   768px and up: title and buttons on the left, a vertical ID card on the right.
+   ========================================================================== */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "title"
+    "id"
+    "actions";
+  gap: 1.5rem;
+}
+
+/* No portrait supplied: the hero is just the title and the buttons */
+.hero-grid--solo {
+  grid-template-areas:
+    "title"
+    "actions";
+}
+
+.hero-title {
+  grid-area: title;
+  min-width: 0;
+}
+
+.hero-title .hero-subtitle {
+  margin-bottom: 0;
+}
+
+.hero-id {
+  grid-area: id;
+  min-width: 0;
+}
+
+.hero-grid .hero-actions {
+  grid-area: actions;
+  align-self: start;
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    /* The card is taller than the text. Row 2 takes the leftover height so the buttons stay
+       directly under the title instead of drifting down. */
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "title id"
+      "actions id";
+    column-gap: 2rem;
+    align-items: start;
+  }
+
+  .hero-grid--solo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "title"
+      "actions";
+  }
+}
+
+/* On desktop windows at least 1280px wide and 700px tall the card moves to the right panel
+   (RightSidebar.astro), so the hero is text-only again. On shorter windows it stays here. */
+@media (min-width: 1280px) and (min-height: 700px) {
+  .hero-id {
+    display: none;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "title"
+      "actions";
+  }
+}
+
+/* ---------- The card ---------- */
+
+.id-card {
+  margin: 1rem 0 0;
+  padding: 0 0.75rem 0.75rem;
+}
+
+.id-card__figure {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin: 0;
+}
+
+.id-card__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--border-control);
+  background: var(--bg-console-header);
+}
+
+.id-card__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The photo is square; the 4:5 frame crops the sides. 32% keeps the head and shoulders centred. */
+  object-position: 50% 32%;
+  filter: saturate(0.95) contrast(1.02);
+}
+
+/* Faint scanlines and a soft vignette, so the photo sits in the same dark "screen" as the page */
+.id-card__scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(5, 7, 10, 0.07) 0,
+      rgba(5, 7, 10, 0.07) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    radial-gradient(ellipse at center, transparent 60%, rgba(5, 7, 10, 0.32) 100%);
+}
+
+/* One bright sweep when the page loads, then nothing */
+.id-card__scan::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 28%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(96, 165, 250, 0.3) 80%,
+    rgba(96, 165, 250, 0.75)
+  );
+  transform: translateY(-100%);
+  animation: id-scan 1.6s ease-out 0.5s 1 both;
+}
+
+@keyframes id-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(360%);
+    opacity: 0;
+  }
+}
+
+/* Corner marks, like a camera focus frame */
+.id-card__corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 0 solid var(--link);
+  pointer-events: none;
+}
+
+.id-card__corner--tl {
+  top: 6px;
+  left: 6px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.id-card__corner--tr {
+  top: 6px;
+  right: 6px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.id-card__corner--bl {
+  bottom: 6px;
+  left: 6px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+.id-card__corner--br {
+  right: 6px;
+  bottom: 6px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.id-card__caption {
+  min-width: 0;
+}
+
+.id-card__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.625rem;
+  color: var(--link);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.id-card__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--link);
+  box-shadow: 0 0 8px var(--link);
+}
+
+.id-card__readout div {
+  margin-bottom: 0.5rem;
+}
+
+.id-card__readout div:last-child {
+  margin-bottom: 0;
+}
+
+.id-card__readout dt {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+}
+
+.id-card__readout dd {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+  .id-card__figure {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.875rem;
+  }
+
+  .id-card__readout dd {
+    font-size: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .id-card__scan::after {
+    display: none;
+  }
+}
